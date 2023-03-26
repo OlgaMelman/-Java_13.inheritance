@@ -6,9 +6,12 @@ import lombok.*;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Product {
+public abstract class Product {
     protected int id;
     protected String name;
     protected int price;
+    public boolean matches(String search) {
+        return getName().contains(search);
+    }
 }
 
