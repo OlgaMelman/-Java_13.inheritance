@@ -19,6 +19,18 @@ public class ProductRepositoryTest {
     }
 
     @Test
+    public void shouldAddProductSameId() {
+        Product product1 = new Product(4, "Линейка", 15);
+        Product product2 = new Product(4, "Домик", 20);
+
+        repository.save(product1);
+
+        Assertions.assertThrows(AlreadyExistException.class, () -> {
+            repository.save(product2);
+        });
+    }
+
+    @Test
     public void shouldRemoveById() {
         Product product1 = new Product(4, "Линейка", 15);
         Product product2 = new Product(6, "Домик", 20);
@@ -30,8 +42,19 @@ public class ProductRepositoryTest {
         Product[] expected = {product1};
         Product[] actual = repository.findAll();
 
-        Assertions.assertArrayEquals(expected,actual);
+        Assertions.assertArrayEquals(expected, actual);
+    }
 
+    @Test
+    public void shouldRemoveByNoId() {
+        Product product1 = new Product(4, "Линейка", 15);
+        Product product2 = new Product(6, "Домик", 20);
 
+        repository.save(product1);
+        repository.save(product2);
+
+        Assertions.assertThrows(NotFoundException.class, () -> {
+            repository.removeById(90);
+        });
     }
 }
