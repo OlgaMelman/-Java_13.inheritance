@@ -8,30 +8,30 @@ public class ProductRepositoryTest {
 
     @Test
     public void shouldAddProduct() {
-        Product product = new Product(5, "Сапиенс", 400);
+        Book book = new Book(5, "Сапиенс", 50, "Харари");
 
-        repository.save(product);
+        repository.save(book);
 
-        Product[] expected = {product};
-        Product[] actual = repository.findAll();
+        Product[] expected = {book};
+        Product [] actual = repository.findAll();
 
         Assertions.assertArrayEquals(expected, actual);
     }
 
     @Test
     public void shouldRemoveById() {
-        Product product1 = new Product(4, "Линейка", 15);
-        Product product2 = new Product(6, "Домик", 20);
+        Book book1 = new Book(5, "Сапиенс", 450, "Харари");
+        Smartphone smart2 = new Smartphone(6, "mi", 20_000, "Xiaomi");
 
-        repository.save(product1);
-        repository.save(product2);
+        repository.save(book1);
+        repository.save(smart2);
         repository.removeById(6);
 
-        Product[] expected = {product1};
+        Product[] expected = {book1};
         Product[] actual = repository.findAll();
 
         Assertions.assertArrayEquals(expected,actual);
 
-
     }
+
 }
